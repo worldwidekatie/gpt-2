@@ -45,12 +45,12 @@ to override the standard stream settings in UTF-8 mode.
 
 Put your fine-tuning data into the src folder as a .txt document, then run `encode.py` to generate a .npz version of your data.
 ```
-python3 src/encode.py your_data.txt your_data.npz
+python3 src/encode.py src/your_data.txt src/your_data.npz
 ```
 
 Run train.py with that new dataset
 ```
-python3 src/train.py --src/your_data.npz
+python3 src/train.py --dataset src/your_data.npz
 ```
 
 When loss and avg are acceptably low, save a checkpoint with ctrl-c

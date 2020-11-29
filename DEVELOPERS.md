@@ -92,8 +92,8 @@ When loss and avg are acceptably low, save a checkpoint with ctrl-c
 ^C
 ```
 
-Rename that folder/model and move it somewhere useful.
+Rename that folder/model and move it into the `models` folder.
 
-Add a copy of the `encoder.json`, `hparams.json` , and `vocab.bpe` from the original model you fine-tuned from.
+Add a copy of `encoder.json`, `hparams.json` , and `vocab.bpe` from the original model you fine-tuned from to your fine-tuned folder.
 
-Run it like you would any of GPT-2 models.
+Run it like you would any of the GPT-2 models.

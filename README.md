@@ -5,9 +5,9 @@ This is the fork of the GPT-2 repo I use to try out different things. It's updat
 I've also added a `chatbot.py` script in the `src` folder. See `DEVELOPERS.md` for instructions on using that and for fine tuning.
 
 
-**Status:** Archive (code is provided as-is, no updates expected)
 
 # gpt-2
+**Status:** Archive (code is provided as-is, no updates expected)
 
 Code and models from the paper ["Language Models are Unsupervised Multitask Learners"](https://d4mucfpksywv.cloudfront.net/better-language-models/language-models.pdf).
 

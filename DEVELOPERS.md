@@ -2,7 +2,7 @@
 
 Git clone this repository, and `cd` into directory for remaining commands
 ```
-git clone https://github.com/openai/gpt-2-altered.git && cd gpt-2-altered
+git clone https://github.com/worldwidekatie/gpt.git && cd gpt-2
 ```
 
 Then, follow instructions
@@ -41,6 +41,8 @@ export PYTHONIOENCODING=UTF-8
 to override the standard stream settings in UTF-8 mode.
 
 ## Unconditional sample generation
+
+**This is still pretty buggy with tensorflow 2.2 because I don't use it enough to have needed to fix them yet.**
 
 To generate unconditional samples from the small model:
 ```

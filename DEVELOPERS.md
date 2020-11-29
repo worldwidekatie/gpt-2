@@ -2,25 +2,21 @@
 
 Git clone this repository, and `cd` into directory for remaining commands
 ```
-git clone https://github.com/openai/gpt-2.git && cd gpt-2
+git clone https://github.com/openai/gpt-2-altered.git && cd gpt-2-altered
 ```
 
-Then, follow instructions for either native or Docker installation.
+Then, follow instructions
 
 ## Native Installation
 
 All steps can optionally be done in a virtual environment using tools such as `virtualenv` or `conda`.
 
-Install tensorflow 1.12 (with GPU support, if you have a GPU and want everything to run faster)
+Run the Virtual enviornment.
 ```
-pip3 install tensorflow==1.12.0
-```
-or
-```
-pip3 install tensorflow-gpu==1.12.0
+pipenv shell
 ```
 
-Install other python packages:
+If there's anything you don't have, install it.
 ```
 pip3 install -r requirements.txt
 ```
@@ -31,21 +27,6 @@ python3 download_model.py 124M
 python3 download_model.py 355M
 python3 download_model.py 774M
 python3 download_model.py 1558M
-```
-
-## Docker Installation
-
-Build the Dockerfile and tag the created image as `gpt-2`:
-```
-docker build --tag gpt-2 -f Dockerfile.gpu . # or Dockerfile.cpu
-```
-
-Start an interactive bash session from the `gpt-2` docker image.
-
-You can opt to use the `--runtime=nvidia` flag if you have access to a NVIDIA GPU
-and a valid install of [nvidia-docker 2.0](https://github.com/nvidia/nvidia-docker/wiki/Installation-(version-2.0)).
-```
-docker run --runtime=nvidia -it gpt-2 bash
 ```
 
 # Running
@@ -86,3 +67,31 @@ To check flag descriptions, use:
 ```
 python3 src/interactive_conditional_samples.py -- --help
 ```
+
+To quit, type quit into model prompt
+```
+Model prompt >>> quit
+```
+
+## Fine-tuning
+
+Put your fine-tuning data into the src folder as a .txt document, then run `encode.py` to generate a .npz version of your data.
+```
+python3 src/encode.py your_data.txt your_data.npz
+```
+
+Run train.py with that new dataset
+```
+python3 src/train.py --src/your_data.npz
+```
+
+When loss and avg are acceptably low, save a checkpoint with ctrl-c
+```
+^C
+```
+
+Rename that folder/model and move it somewhere useful.
+
+Add a copy of the `encoder.json`, `hparams.json` , and `vocab.bpe` from the original model you fine-tuned from.
+
+Run it like you would any of GPT-2 models.

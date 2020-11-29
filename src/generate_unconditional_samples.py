@@ -4,16 +4,16 @@ import fire
 import json
 import os
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 import model, sample, encoder
 
 def sample_model(
-    model_name='124M',
+    model_name='124M,
     seed=None,
-    nsamples=0,
+    nsamples=2,
     batch_size=1,
-    length=None,
+    length=150,
     temperature=1,
     top_k=0,
     top_p=1,

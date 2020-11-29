@@ -6,14 +6,19 @@ import os
 import numpy as np
 import tensorflow as tf
 
-import model, sample, encoder
+import numbers
+import re
+import six
+
+import model, sample, encoder, hparam
+from hparam import HParams
 
 def interact_model(
-    model_name='124M',
+    model_name='model-10',
     seed=None,
     nsamples=1,
     batch_size=1,
-    length=None,
+    length=100,
     temperature=1,
     top_k=0,
     top_p=1,
@@ -21,7 +26,7 @@ def interact_model(
 ):
     """
     Interactively run the model
-    :model_name=124M : String, which model to use
+    :model_name=1558M : String, which model to use
     :seed=None : Integer seed for random number generators, fix seed to reproduce
      results
     :nsamples=1 : Number of samples to return total
@@ -54,10 +59,10 @@ def interact_model(
     elif length > hparams.n_ctx:
         raise ValueError("Can't get samples longer than window size: %s" % hparams.n_ctx)
 
-    with tf.Session(graph=tf.Graph()) as sess:
-        context = tf.placeholder(tf.int32, [batch_size, None])
+    with tf.compat.v1.Session(graph=tf.compat.v1.Graph()) as sess:
+        context = tf.compat.v1.placeholder(tf.compat.v1.int32, [batch_size, None])
         np.random.seed(seed)
-        tf.set_random_seed(seed)
+        tf.compat.v1.set_random_seed(seed)
         output = sample.sample_sequence(
             hparams=hparams, length=length,
             context=context,
@@ -65,12 +70,14 @@ def interact_model(
             temperature=temperature, top_k=top_k, top_p=top_p
         )
 
-        saver = tf.train.Saver()
-        ckpt = tf.train.latest_checkpoint(os.path.join(models_dir, model_name))
+        saver = tf.compat.v1.train.Saver()
+        ckpt = tf.compat.v1.train.latest_checkpoint(os.path.join(models_dir, model_name))
         saver.restore(sess, ckpt)
 
         while True:
             raw_text = input("Model prompt >>> ")
+            if raw_text == 'quit':
+                break
             while not raw_text:
                 print('Prompt should not be empty!')
                 raw_text = input("Model prompt >>> ")
@@ -80,6 +87,7 @@ def interact_model(
                 out = sess.run(output, feed_dict={
                     context: [context_tokens for _ in range(batch_size)]
                 })[:, len(context_tokens):]
+
                 for i in range(batch_size):
                     generated += 1
                     text = enc.decode(out[i])
@@ -89,4 +97,3 @@ def interact_model(
 
 if __name__ == '__main__':
     fire.Fire(interact_model)
-

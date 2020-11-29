@@ -1,3 +1,10 @@
+# Katie's GPT-2 Fork
+
+This is the fork of the GPT-2 repo I use to try out different things. It's updated to use tensorflow 2.2 and has some code from (nshepperd's gpt-2 fork)[https://github.com/nshepperd/gpt-2] to help with fine-tuning, also updated to work with tensorflow 2.2.
+
+I've also added a `chatbot.py` script in the `src` folder. See `DEVELOPERS.md` for instructions on using that and for fine tuning.
+
+
 **Status:** Archive (code is provided as-is, no updates expected)
 
 # gpt-2

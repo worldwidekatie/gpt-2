@@ -97,3 +97,25 @@ Rename that folder/model and move it into the `models` folder.
 Add a copy of `encoder.json`, `hparams.json` , and `vocab.bpe` from the original model you fine-tuned from to your fine-tuned folder.
 
 Run it like you would any of the GPT-2 models.
+
+## Chatbots
+
+To get started with an 'out-of-the-box' chatbot, just run `chatbot.py`.
+```
+python3 src/chatbot.py
+```
+
+To make changes, change the default parameters in the `chatbot.py` file and run it again. E.g.
+```
+if __name__ == '__main__':
+    Jane = ChatBot(bot="Jane",
+               user="You",
+               instructions="This is a conversation with Jane, a friendly and futuristic thinker.",
+               examples=[("How different will the future be?", 
+                          "Very different due to exponential growth in key areas.")],
+               temperature=.95)
+
+    Jane.proto_chat()
+```
+
+**Pro Tip!** Try out the fine-tuning instructions above to make a model specific to chatbots.
